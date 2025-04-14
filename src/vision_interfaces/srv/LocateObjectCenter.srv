@@ -1,0 +1,8 @@
+string object_label  # 要识别的物体标签（如 "cup"）
+
+---
+
+# 响应结果
+geometry_msgs/Point position      # 物体中心坐标 (x,y,z)
+geometry_msgs/Quaternion orientation  # 姿态四元数
+bool success                     # 是否识别成功

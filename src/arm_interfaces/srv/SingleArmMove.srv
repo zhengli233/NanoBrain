@@ -1,0 +1,7 @@
+# Request
+string which_arm                         # "left" or "right"
+geometry_msgs/Point position      # 物体中心坐标 (x,y,z)
+geometry_msgs/Quaternion orientation  # 姿态四元数
+---
+# Response
+bool success                             # Whether the move was successful
