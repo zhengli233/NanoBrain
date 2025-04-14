@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(aider_core)
 
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -15,10 +16,16 @@ find_package(geometry_msgs REQUIRED)
 add_executable(aider_core
       src/task_lib/grab_cup/grab_cup.cpp
       src/aider_core.cpp
+      src/primitive_lib/locate_object_center/locate_object_center.cpp
+      src/primitive_lib/single_arm_move_to/single_arm_move_to.cpp
       src/main.cpp)
 target_include_directories(aider_core PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Client>
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aider_core/task_lib>
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/aider_core/primitive_lib>
+$<INSTALL_INTERFACE:include>
+)
 target_compile_features(aider_core PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
   aider_core

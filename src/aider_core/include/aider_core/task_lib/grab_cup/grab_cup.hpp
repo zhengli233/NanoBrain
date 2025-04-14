@@ -1,13 +1,11 @@
 #ifndef GRAB_CUP_HPP_
 #define GRAB_CUP_HPP_
-#include "task.hpp"
-#include "vision_interfaces/srv/locate_object_center.hpp"
-#include "arm_interfaces/srv/single_arm_move.hpp"
-#include "Template_Client_Service.hpp"
-#include "Client.hpp"
+#include "../task.hpp"
+#include "aider_core/primitive_lib/locate_object_center/locate_object_center.hpp"
+#include "aider_core/primitive_lib/single_arm_move_to/single_arm_move_to.hpp"
+#include "aider_core/primitive_lib/primitive_lib.hpp"
 
-using vision_interfaces::srv::LocateObjectCenter;
-using arm_interfaces::srv::SingleArmMove;
+
 
 
 class GrapCupTask : public Task {
@@ -18,8 +16,8 @@ class GrapCupTask : public Task {
 
     private:
         std::shared_ptr<rclcpp::Node> node_;
-        std::shared_ptr<Client> center_ask_client_;
-        std::shared_ptr<Client> single_arm_move_client_;
+        std::shared_ptr<Primitive> locate_object_center_;
+        std::shared_ptr<Primitive> single_arm_move_to_;
     };
 
 

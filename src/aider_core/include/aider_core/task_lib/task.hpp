@@ -19,4 +19,4 @@ class Task {
 
 
 
-#endif // AIDER_CORE__AIDER_CORE_HPP_
+#endif // TASK_HPP_
