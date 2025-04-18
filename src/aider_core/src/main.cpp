@@ -4,7 +4,7 @@ int main(int argc, char ** argv)
 {
     rclcpp::init(argc,argv);
     auto aider = std::make_shared<Aider>();
-    aider->Task_test();
+    aider->Carry_Box_test();
     rclcpp::spin(aider);
     rclcpp::shutdown();
     return 0;

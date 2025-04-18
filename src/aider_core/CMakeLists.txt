@@ -11,13 +11,16 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(vision_interfaces REQUIRED)
 find_package(arm_interfaces REQUIRED)
+find_package(lowerbody_interfaces REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
 add_executable(aider_core
       src/task_lib/grab_cup/grab_cup.cpp
+      src/task_lib/carry_box/carry_box.cpp
       src/aider_core.cpp
       src/primitive_lib/locate_object_center/locate_object_center.cpp
       src/primitive_lib/single_arm_move_to/single_arm_move_to.cpp
+      src/primitive_lib/crouch/crouch.cpp
       src/main.cpp)
 target_include_directories(aider_core PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -33,6 +36,7 @@ ament_target_dependencies(
   "vision_interfaces"
   "arm_interfaces"
   "geometry_msgs"
+  "lowerbody_interfaces"
 )
 
 install(TARGETS aider_core

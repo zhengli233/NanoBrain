@@ -7,9 +7,11 @@
 class Aider: public rclcpp::Node{
     public:
         Aider();  // 构造函数声明
-        void Task_test();//测试抓取的程序逻辑
+        void Grab_Task_test();//测试抓取的程序逻辑
+        void Carry_Box_test();//测试搬运箱子程序逻辑
     private:
         std::shared_ptr<Task> grab_task_;
+        std::shared_ptr<Task> carry_task_;
 
     
     };

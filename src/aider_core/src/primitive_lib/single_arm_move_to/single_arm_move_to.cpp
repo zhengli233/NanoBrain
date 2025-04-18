@@ -18,11 +18,11 @@ SingleArmMoveToPrimitive::SingleArmMoveToPrimitive(std::shared_ptr<rclcpp::Node>
     REGISTER_PARAM("target_position_z", double, target_position_z);
     //在SingleArmMoveToPrimitive动作基元库解析函数中实例化需要用到的服务通信
     single_arm_move_to_client_ = std::make_shared<TemplateClientService<SingleArmMove>>(node_);
+    //创立手臂通讯服务端
+    single_arm_move_to_client_->Create("single_arm_move_to");//创立服务通讯客户端
 }
 
 bool SingleArmMoveToPrimitive::Excute() {
-    //创立手臂通讯服务端
-    single_arm_move_to_client_->Create("single_arm_move_to");//创立服务通讯客户端
     //检测服务端有无连接
     if(single_arm_move_to_client_->Connect()==false) {
         RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),"未连接至手臂服务器，连接失败，程序退出！");

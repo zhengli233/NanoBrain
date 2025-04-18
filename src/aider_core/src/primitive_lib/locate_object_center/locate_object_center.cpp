@@ -18,10 +18,10 @@ LocateCenterPrimitive::LocateCenterPrimitive(std::shared_ptr<rclcpp::Node> node)
     REGISTER_PARAM("target_position_z", double, target_position_z);
     //在LocateCenterPrimitive动作基元库解析函数中实例化需要用到的服务通信
     center_ask_client_ = std::make_shared<TemplateClientService<LocateObjectCenter>>(node_);
+    center_ask_client_->Create("locate_center");//创立服务通讯客户端
 }
 
 bool LocateCenterPrimitive::Excute() {
-    center_ask_client_->Create("locate_center");//创立服务通讯客户端
     //检测服务端有无连接
     if(center_ask_client_->Connect()==false) {
         RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),"未连接至服务器，连接失败，程序退出！");
