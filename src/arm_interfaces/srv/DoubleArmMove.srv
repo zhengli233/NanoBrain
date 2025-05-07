@@ -1,0 +1,8 @@
+# Request
+geometry_msgs/Point left_position      # 物体中心坐标 (x,y,z)
+geometry_msgs/Quaternion left_orientation  # 姿态四元数
+geometry_msgs/Point right_position      # 物体中心坐标 (x,y,z)
+geometry_msgs/Quaternion right_orientation  # 姿态四元数
+---
+# Response
+bool success                             # Whether the move was successful
