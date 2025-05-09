@@ -8,7 +8,8 @@ int main(int argc, char ** argv)
     rclcpp::init(argc,argv);
     aider_node = std::make_shared<rclcpp::Node>("aider_core_node_cpp");
     auto aider = std::make_shared<Aider>();
-    aider->Carry_Box_test();
+    aider->AddUnit("GrabCup");
+    aider->Execute();
     rclcpp::spin(aider_node);
     rclcpp::shutdown();
     return 0;

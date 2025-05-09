@@ -2,19 +2,26 @@
 #define AIDER_CORE_HPP_
 
 #include "rclcpp/rclcpp.hpp"
+#include <queue>
+#include <variant>
+#include <memory>
+#include <string>
+#include <iostream>
 #include "task.hpp"
+#include "aider_core/primitive_lib/primitive_lib.hpp"
+#include "task_factory.hpp"
+#include "aider_core/primitive_lib/primitive_factory.hpp"
 
 class Aider{
-    public:
-        Aider();  // 构造函数声明
-        void Grab_Task_test();//测试抓取的程序逻辑
-        void Carry_Box_test();//测试搬运箱子程序逻辑
-    private:
-        std::shared_ptr<Task> grab_task_;
-        std::shared_ptr<Task> carry_task_;
+public:
+    using Unit = std::variant<std::shared_ptr<Task>, std::shared_ptr<Primitive>>;
+    void AddUnit(const std::string& name);
+    void Execute();
 
+private:
+    std::queue<Unit> queue_;
     
-    };
+};
 
 
 #endif  // AIDER_CORE_HPP_
