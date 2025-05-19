@@ -5,6 +5,7 @@ using namespace std::chrono_literals;
 
 
 DoubleArmMovePrimitive::DoubleArmMovePrimitive() {
+    aider_node = AiderNode::get_instance();
     RCLCPP_INFO(aider_node->get_logger(), "动作基元：双臂臂运动指定坐标点已激活！");//在DoubleArmMovePrimitive动作基元库中传递大脑节点
     //初始化参数列表
     REGISTER_PARAM("target_left_orientation_x", double, left_target_orientation_x);

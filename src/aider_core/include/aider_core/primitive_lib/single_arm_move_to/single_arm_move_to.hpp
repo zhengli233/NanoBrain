@@ -10,22 +10,23 @@ using arm_interfaces::srv::SingleArmMove;
 
 
 class SingleArmMoveToPrimitive : public Primitive {
-    public:
-        explicit SingleArmMoveToPrimitive();
-        virtual bool Excute();
-        virtual void Stop();
+public:
+    explicit SingleArmMoveToPrimitive();
+    virtual bool Excute();
+    virtual void Stop();
 
-    private:
-        std::shared_ptr<Client> single_arm_move_to_client_;//设置服务通信客户端
-        //以下是本动作基元所需变量
-        std::string which_arm;
-        double target_orientation_x;
-        double target_orientation_y;
-        double target_orientation_z;
-        double target_orientation_w;
-        double target_position_x;
-        double target_position_y;
-        double target_position_z;
+private:
+    std::shared_ptr<rclcpp::Node> aider_node;
+    std::shared_ptr<Client> single_arm_move_to_client_;//设置服务通信客户端
+    //以下是本动作基元所需变量
+    std::string which_arm;
+    double target_orientation_x;
+    double target_orientation_y;
+    double target_orientation_z;
+    double target_orientation_w;
+    double target_position_x;
+    double target_position_y;
+    double target_position_z;
     };
 
 

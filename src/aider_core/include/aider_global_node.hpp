@@ -1,11 +1,18 @@
 #ifndef AIDER_GLOBAL_CORE_HPP_
 #define AIDER_GLOBAL_CORE_HPP_
-//设置一个规划节点的单例，避免了节点传递的繁琐
+
+
 #include <memory>
 #include "rclcpp/rclcpp.hpp"
 
-// 声明一个全局的共享指针
-extern std::shared_ptr<rclcpp::Node> aider_node;
+class AiderNode {
+public:
+    static std::shared_ptr<rclcpp::Node> get_instance();
+
+private:
+    AiderNode() = default;
+    static std::shared_ptr<rclcpp::Node> instance_;
+};
 
 
 

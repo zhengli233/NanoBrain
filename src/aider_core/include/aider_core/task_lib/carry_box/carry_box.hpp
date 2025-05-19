@@ -18,6 +18,7 @@ class CarryBoxTask : public Task {
     private:
         std::shared_ptr<Primitive> crouch_;
         std::shared_ptr<Primitive> double_arm_move_to_;
+        std::shared_ptr<rclcpp::Node> aider_node;
     };
 
 

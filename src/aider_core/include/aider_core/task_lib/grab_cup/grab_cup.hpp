@@ -18,6 +18,7 @@ class GrapCupTask : public Task {
     private:
         std::shared_ptr<Primitive> locate_object_center_;
         std::shared_ptr<Primitive> single_arm_move_to_;
+        std::shared_ptr<rclcpp::Node> aider_node;
     };
 
 

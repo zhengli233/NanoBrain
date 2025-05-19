@@ -3,6 +3,7 @@
 
 
 CarryBoxTask::CarryBoxTask() {
+    aider_node = AiderNode::get_instance();
     RCLCPP_INFO(aider_node->get_logger(), "主节点已共享！");//在carrybox动作库中传递大脑节点
     crouch_ = std::make_shared<CrouchPrimitive>();//创建下蹲动作基元
     double_arm_move_to_ = std::make_shared<DoubleArmMovePrimitive>();//创建双臂操作动作基元

@@ -5,6 +5,7 @@ using namespace std::chrono_literals;
 
 
 CrouchPrimitive::CrouchPrimitive() {
+    aider_node = AiderNode::get_instance();
     RCLCPP_INFO(aider_node->get_logger(), "动作基元：下蹲已激活！");//在CrouchPrimitive动作基元库中传递大脑节点
     //初始化参数列表
     REGISTER_PARAM("crouch_height",double, crouch_height);

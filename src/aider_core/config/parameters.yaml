@@ -1,0 +1,52 @@
+parameters:
+  object_name:
+    type: string
+    scope: task
+  left_target_orientation_x:
+    type: float
+    scope: primitive
+  left_target_orientation_y:
+    type: float
+    scope: primitive
+  left_target_orientation_z:
+    type: float
+    scope: primitive
+  left_target_orientation_w:
+    type: float
+    scope: primitive
+  left_target_position_x:
+    type: float
+    scope: primitive
+  left_target_position_y:
+    type: float
+    scope: primitive
+  left_target_position_z:
+    type: float
+    scope: primitive
+  right_target_orientation_x:
+    type: float
+    scope: primitive
+  right_target_orientation_y:
+    type: float
+    scope: primitive
+  right_target_orientation_z:
+    type: float
+    scope: primitive
+  right_target_orientation_w:
+    type: float
+    scope: primitive
+  right_target_position_x:
+    type: float
+    scope: primitive
+  right_target_position_y:
+    type: float
+    scope: primitive
+  right_target_position_z:
+    type: float
+    scope: primitive
+  crouch_height:
+    type: float
+    scope: primitive
+
+
+    

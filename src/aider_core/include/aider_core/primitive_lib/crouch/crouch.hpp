@@ -10,16 +10,17 @@ using lowerbody_interfaces::srv::Crouch;
 
 
 class CrouchPrimitive : public Primitive {
-    public:
-        explicit CrouchPrimitive();
-        virtual bool Excute();
-        virtual void Stop();
+public:
+    explicit CrouchPrimitive();
+    virtual bool Excute();
+    virtual void Stop();
 
-    private:
-        std::shared_ptr<Client> crouch_to_client_;//设置服务通信客户端
-        //以下是本动作基元所需变量
-        double crouch_height;
-    };
+private:
+    std::shared_ptr<rclcpp::Node> aider_node;
+    std::shared_ptr<Client> crouch_to_client_;//设置服务通信客户端
+    //以下是本动作基元所需变量
+    double crouch_height;
+};
 
 
 

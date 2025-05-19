@@ -5,6 +5,7 @@ using namespace std::chrono_literals;
 
 
 LocateCenterPrimitive::LocateCenterPrimitive() {
+    aider_node = AiderNode::get_instance();
     RCLCPP_INFO(aider_node->get_logger(), "动作基元：定位物体坐标点已激活！");//在LocateCenterPrimitive动作基元库中传递大脑节点
     //初始化参数列表
     REGISTER_PARAM("object_label", std::string, object_label);

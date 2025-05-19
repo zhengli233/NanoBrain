@@ -17,7 +17,7 @@ public:
         } else if (name == "CarryBox") {
             return std::make_shared<CarryBoxTask>();
         } else {
-            RCLCPP_ERROR(aider_node->get_logger(), "Task not found!");
+            RCLCPP_ERROR(AiderNode::get_instance()->get_logger(), "Task not found!");
             return nullptr;
         }
     }

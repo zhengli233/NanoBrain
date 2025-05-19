@@ -26,7 +26,7 @@ public:
         } else if (name == "SingleArmMoveTo") {
             return std::make_shared<SingleArmMoveToPrimitive>();
         } else {
-            RCLCPP_ERROR(aider_node->get_logger(), "Primitive not found!");
+            RCLCPP_ERROR(AiderNode::get_instance()->get_logger(), "Primitive not found!");
             return nullptr;
         }
     }

@@ -15,7 +15,9 @@ public:
     using Response = typename ServiceT::Response;
 
     explicit TemplateClientService() 
-    :client_(nullptr) {}
+    :client_(nullptr) {
+        aider_node = AiderNode::get_instance();
+    }
 
     // 实现基类创建服务的方法
     void Create(const std::string& service_name) override {
@@ -62,6 +64,7 @@ public:
 
 private:
     typename rclcpp::Client<ServiceT>::SharedPtr client_;
+    std::shared_ptr<rclcpp::Node> aider_node;
 };
 
 #endif // TEMPLATE_CLIENT_SERVICE_HPP

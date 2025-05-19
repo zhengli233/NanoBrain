@@ -3,6 +3,7 @@
 
 
 GrapCupTask::GrapCupTask() {
+    aider_node = AiderNode::get_instance();
     RCLCPP_INFO(aider_node->get_logger(), "主节点已共享！");//在grapcup动作库中传递大脑节点
     locate_object_center_ = std::make_shared<LocateCenterPrimitive>();//创建定位物体中心点动作基元
     single_arm_move_to_ = std::make_shared<SingleArmMoveToPrimitive>();//创建单手臂运动动作基元

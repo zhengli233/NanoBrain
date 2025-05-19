@@ -13,6 +13,7 @@ find_package(vision_interfaces REQUIRED)
 find_package(arm_interfaces REQUIRED)
 find_package(lowerbody_interfaces REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 add_executable(aider_core
       src/task_lib/grab_cup/grab_cup.cpp
@@ -23,6 +24,8 @@ add_executable(aider_core
       src/primitive_lib/crouch/crouch.cpp
       src/primitive_lib/double_arm_move_to/double_arm_move_to.cpp
       src/primitive_lib/locate_object_rl/locate_object_rl.cpp
+      src/param_center/param_center.cpp
+      src/aider_global_node.cpp
       src/main.cpp)
 target_include_directories(aider_core PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -40,6 +43,8 @@ ament_target_dependencies(
   "geometry_msgs"
   "lowerbody_interfaces"
 )
+
+target_link_libraries(aider_core yaml-cpp)
 
 install(TARGETS aider_core
   DESTINATION lib/${PROJECT_NAME})

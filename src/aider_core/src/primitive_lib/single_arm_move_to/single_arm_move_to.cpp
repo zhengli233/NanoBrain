@@ -5,6 +5,7 @@ using namespace std::chrono_literals;
 
 
 SingleArmMoveToPrimitive::SingleArmMoveToPrimitive() {
+    aider_node = AiderNode::get_instance();
     RCLCPP_INFO(aider_node->get_logger(), "动作基元：单臂运动指定坐标点已激活！");//在SingleArmMoveToPrimitive动作基元库中传递大脑节点
     //初始化参数列表
     REGISTER_PARAM("which_arm", std::string, which_arm);
