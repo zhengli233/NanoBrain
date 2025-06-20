@@ -2,13 +2,17 @@
 
 using lowerbody_interfaces::srv::Crouch;
 using namespace std::chrono_literals;
+//用到参数
+//输入：crouch_height
 
-
-CrouchPrimitive::CrouchPrimitive() {
+CrouchPrimitive::CrouchPrimitive(std::string task_name,int task_instance_id) {
     aider_node = AiderNode::get_instance();
+    param_center = ParamNode::get_instance("src/aider_core/config/parameters.yaml");
+    this->task_name_ = task_name;
+    this->task_instance_id_ = task_instance_id;
+    //注册要用的参数
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "crouch_height");
     RCLCPP_INFO(aider_node->get_logger(), "动作基元：下蹲已激活！");//在CrouchPrimitive动作基元库中传递大脑节点
-    //初始化参数列表
-    REGISTER_PARAM("crouch_height",double, crouch_height);
     //在CrouchPrimitive动作基元库解析函数中实例化需要用到的服务通信
     crouch_to_client_ = std::make_shared<TemplateClientService<Crouch>>();
     crouch_to_client_->Create("crouch_to");//创立服务通讯客户端
@@ -24,7 +28,7 @@ bool CrouchPrimitive::Excute() {
     lowerbody_interfaces::srv::Crouch::Request crouch_request;
     lowerbody_interfaces::srv::Crouch::Response crouch_response;
     //向服务端发送请求并获取服务端返回数据
-    crouch_request.crouch_height=this->crouch_height;
+    crouch_request.crouch_height = std::any_cast<double>(param_center->GetParamValue(this->task_name_,this->task_instance_id_,"crouch_height").value());
     if(crouch_to_client_->SendRequest(&crouch_request,&crouch_response)==false) {
         RCLCPP_ERROR(aider_node->get_logger(),"未连接至下肢服务器，连接失败，程序退出！");
         return 0;

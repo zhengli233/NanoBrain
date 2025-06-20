@@ -13,19 +13,26 @@ find_package(vision_interfaces REQUIRED)
 find_package(arm_interfaces REQUIRED)
 find_package(lowerbody_interfaces REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(nav_interfaces REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 add_executable(aider_core
       src/task_lib/grab_cup/grab_cup.cpp
       src/task_lib/carry_box/carry_box.cpp
+      src/task_lib/grab/grab.cpp
       src/aider_core.cpp
       src/primitive_lib/locate_object_center/locate_object_center.cpp
       src/primitive_lib/single_arm_move_to/single_arm_move_to.cpp
       src/primitive_lib/crouch/crouch.cpp
       src/primitive_lib/double_arm_move_to/double_arm_move_to.cpp
       src/primitive_lib/locate_object_rl/locate_object_rl.cpp
+      src/primitive_lib/double_arm_move_to_cartesian/double_arm_move_to_cartesian.cpp
+      src/primitive_lib/nav_to_object/nav_to_object.cpp
+      src/primitive_lib/nav_retreat_roate/nav_retreat_roate.cpp
+      src/primitive_lib/nav_to_point/nav_to_point.cpp
       src/param_center/param_center.cpp
       src/aider_global_node.cpp
+      src/param_global_node.cpp
       src/main.cpp)
 target_include_directories(aider_core PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -42,6 +49,7 @@ ament_target_dependencies(
   "arm_interfaces"
   "geometry_msgs"
   "lowerbody_interfaces"
+  "nav_interfaces"
 )
 
 target_link_libraries(aider_core yaml-cpp)

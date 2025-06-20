@@ -1,52 +1,49 @@
 parameters:
   object_name:
     type: string
-    scope: task
+  which_arm:
+    type: string
   left_target_orientation_x:
     type: float
-    scope: primitive
   left_target_orientation_y:
     type: float
-    scope: primitive
   left_target_orientation_z:
     type: float
-    scope: primitive
   left_target_orientation_w:
     type: float
-    scope: primitive
   left_target_position_x:
     type: float
-    scope: primitive
   left_target_position_y:
     type: float
-    scope: primitive
   left_target_position_z:
     type: float
-    scope: primitive
   right_target_orientation_x:
     type: float
-    scope: primitive
   right_target_orientation_y:
     type: float
-    scope: primitive
   right_target_orientation_z:
     type: float
-    scope: primitive
   right_target_orientation_w:
     type: float
-    scope: primitive
   right_target_position_x:
     type: float
-    scope: primitive
   right_target_position_y:
     type: float
-    scope: primitive
   right_target_position_z:
     type: float
-    scope: primitive
   crouch_height:
     type: float
-    scope: primitive
-
+  nav_to_target_x:
+    type: float
+  nav_to_target_y:
+    type: float
+  nav_to_target_oriention_x:
+    type: float
+  nav_to_target_oriention_y:
+    type: float
+  nav_to_target_oriention_z:
+    type: float
+  nav_to_target_oriention_w:
+    type: float
 
     

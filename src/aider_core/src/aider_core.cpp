@@ -15,28 +15,19 @@ Aider::Aider() {
     aider_node = AiderNode::get_instance();
 }
 
-void Aider::AddUnit(const std::string& name) {
+void Aider::AddTask(const std::string& name) {
     if (auto task = TaskFactory::Create(name); task) {
     queue_.emplace(task);
-    } else if (auto primitive = PrimitiveFactory::Create(name); primitive) {
-    queue_.emplace(primitive);
     } else {
-    std::cerr << "Unknown unit name: " << name << std::endl;
-    RCLCPP_ERROR(aider_node->get_logger(), "Unknown unit name:%s",name.c_str());
+    std::cerr << "Unknown task name: " << name << std::endl;
+    RCLCPP_ERROR(aider_node->get_logger(), "Unknown task name:%s",name.c_str());
     }
 }
 
 void Aider::Execute() {
         while (!queue_.empty()) {
-        Unit& unit = queue_.front();
-        std::visit([](auto& ptr) {
-            using T = std::decay_t<decltype(*ptr)>;
-            if constexpr (std::is_base_of_v<Task, T>) {
-                ptr->Excute();
-            } else if constexpr (std::is_base_of_v<Primitive, T>) {
-                ptr->Excute();
-            }
-        }, unit);
+        std::shared_ptr<Task>& task_excute = queue_.front();
+        task_excute->Excute();
         queue_.pop();
     }
 }

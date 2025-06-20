@@ -7,22 +7,20 @@
 #include <memory>
 #include <string>
 #include <iostream>
-#include "task.hpp"
-#include "aider_global_node.hpp"
+#include "aider_core/task_lib/task.hpp"
+#include "aider_global_node.hpp"//ros2节点单例
+#include "param_global_node.hpp"//参数中心单例
 #include "aider_core/primitive_lib/primitive_lib.hpp"
-#include "task_factory.hpp"
-#include "aider_core/primitive_lib/primitive_factory.hpp"
-#include "aider_core/param_center/param_center.hpp"
+#include "aider_core/task_lib/task_factory.hpp"
 
 class Aider{
 public:
-    using Unit = std::variant<std::shared_ptr<Task>, std::shared_ptr<Primitive>>;
     Aider();
-    void AddUnit(const std::string& name);
+    void AddTask(const std::string& name);
     void Execute();
 
 private:
-    std::queue<Unit> queue_;
+    std::queue<std::shared_ptr<Task>> queue_;
     std::shared_ptr<rclcpp::Node> aider_node;
     
 };

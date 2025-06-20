@@ -2,20 +2,30 @@
 
 using vision_interfaces::srv::LocateObjectCenter;
 using namespace std::chrono_literals;
-
-
-LocateCenterPrimitive::LocateCenterPrimitive() {
+//用到参数
+//输入：object_name
+//输出：left_target_orientation_x
+//输出：left_target_orientation_y
+//输出：left_target_orientation_z
+//输出：left_target_orientation_w
+//输出：left_target_position_x
+//输出：left_target_position_y
+//输出：left_target_position_z
+LocateCenterPrimitive::LocateCenterPrimitive(std::string task_name,int task_instance_id) {
     aider_node = AiderNode::get_instance();
+    param_center = ParamNode::get_instance("src/aider_core/config/parameters.yaml");
+    this->task_name_ = task_name;
+    this->task_instance_id_ = task_instance_id;
+    //注册要用的参数
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "object_name");
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "left_target_orientation_x");
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "left_target_orientation_y");
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "left_target_orientation_z");
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "left_target_orientation_w");
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "left_target_position_x");
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "left_target_position_y");
+    param_center->RegistParam(this->task_name_, this->task_instance_id_, "left_target_position_z");
     RCLCPP_INFO(aider_node->get_logger(), "动作基元：定位物体坐标点已激活！");//在LocateCenterPrimitive动作基元库中传递大脑节点
-    //初始化参数列表
-    REGISTER_PARAM("object_label", std::string, object_label);
-    REGISTER_PARAM("target_orientation_x", double, target_orientation_x);
-    REGISTER_PARAM("target_orientation_y", double, target_orientation_y);
-    REGISTER_PARAM("target_orientation_z", double, target_orientation_z);
-    REGISTER_PARAM("target_orientation_w", double,target_orientation_w);
-    REGISTER_PARAM("target_position_x", double, target_position_x);
-    REGISTER_PARAM("target_position_y", double, target_position_y);
-    REGISTER_PARAM("target_position_z", double, target_position_z);
     //在LocateCenterPrimitive动作基元库解析函数中实例化需要用到的服务通信
     center_ask_client_ = std::make_shared<TemplateClientService<LocateObjectCenter>>();
     center_ask_client_->Create("locate_center");//创立服务通讯客户端
@@ -31,7 +41,7 @@ bool LocateCenterPrimitive::Excute() {
     vision_interfaces::srv::LocateObjectCenter::Request center_request;
     vision_interfaces::srv::LocateObjectCenter::Response center_response;
     //向服务端发送请求并获取服务端返回数据
-    center_request.object_label=this->object_label;
+    center_request.object_label = std::any_cast<std::string>(param_center->GetParamValue(this->task_name_,this->task_instance_id_,"object_name").value());
     if(center_ask_client_->SendRequest(&center_request,&center_response)==false) {
         RCLCPP_ERROR(aider_node->get_logger(),"未连接至视觉服务器，连接失败，程序退出！");
         return 0;
@@ -42,13 +52,20 @@ bool LocateCenterPrimitive::Excute() {
         return 0;
     }
     //对目标位姿进行赋值
-    target_orientation_x = center_response.orientation.x;
-    target_orientation_y = center_response.orientation.y;
-    target_orientation_z = center_response.orientation.z;
-    target_orientation_w = center_response.orientation.w;
-    target_position_x = center_response.position.x;
-    target_position_y = center_response.position.y;
-    target_position_z = center_response.position.z;
+    this->target_orientation_x = center_response.orientation.x;
+    this->target_orientation_y = center_response.orientation.y;
+    this->target_orientation_z = center_response.orientation.z;
+    this->target_orientation_w = center_response.orientation.w;
+    this->target_position_x = center_response.position.x;
+    this->target_position_y = center_response.position.y;
+    this->target_position_z = center_response.position.z;
+    this->param_center->SetParamValue(this->task_name_, this->task_instance_id_, "left_target_orientation_x", target_orientation_x);
+    param_center->SetParamValue(this->task_name_, this->task_instance_id_, "left_target_orientation_y", target_orientation_y);
+    param_center->SetParamValue(this->task_name_, this->task_instance_id_, "left_target_orientation_z", target_orientation_z);
+    param_center->SetParamValue(this->task_name_, this->task_instance_id_, "left_target_orientation_w", target_orientation_w);
+    param_center->SetParamValue(this->task_name_, this->task_instance_id_, "left_target_position_x", target_position_x);
+    param_center->SetParamValue(this->task_name_, this->task_instance_id_, "left_target_position_y", target_position_y);
+    param_center->SetParamValue(this->task_name_, this->task_instance_id_, "left_target_position_z", target_position_z);
     //打印出目标中心点坐标
     RCLCPP_INFO(aider_node->get_logger(),"物品%s中心坐标: x:%f,y:%f,z:%f",
                                     center_request.object_label.c_str(),

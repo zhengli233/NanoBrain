@@ -1,27 +1,26 @@
-#ifndef LOCATE_OBJECT_RL_HPP_
-#define LOCATE_OBJECT_RL_HPP_
+#ifndef DOUBLE_ARM_MOVE_TO_CARTESIAN_HPP_
+#define DOUBLE_ARM_MOVE_TO_CARTESIAN_HPP_
 #include "../primitive_lib.hpp"
 #include "aider_global_node.hpp"
 #include "param_global_node.hpp"//参数中心单例
-#include "vision_interfaces/srv/locate_object_rl.hpp"
+#include "arm_interfaces/srv/double_arm_move_cartesian.hpp"
 #include "Template_Client_Service.hpp"
 #include "Client.hpp"
 
-using vision_interfaces::srv::LocateObjectRL;
+using arm_interfaces::srv::DoubleArmMoveCartesian;
 
 
-class LocateRLPrimitive : public Primitive {
+class DoubleArmMoveCartesianPrimitive : public Primitive {
 public:
-    explicit LocateRLPrimitive(std::string task_name,int task_instance_id);
+    explicit DoubleArmMoveCartesianPrimitive(std::string task_name,int task_instance_id);
     virtual bool Excute();
     virtual void Stop();
 
 private:
     std::shared_ptr<rclcpp::Node> aider_node;
     std::shared_ptr<ParamCenter> param_center; 
-    std::shared_ptr<Client> rl_ask_client_;//设置服务通信客户端
+    std::shared_ptr<Client> double_arm_move_to_cartesian_client_;//设置服务通信客户端
     //以下是本动作基元所需变量
-    std::string object_label;
     double left_target_orientation_x;
     double left_target_orientation_y;
     double left_target_orientation_z;
@@ -29,6 +28,7 @@ private:
     double left_target_position_x;
     double left_target_position_y;
     double left_target_position_z;
+
     double right_target_orientation_x;
     double right_target_orientation_y;
     double right_target_orientation_z;
@@ -44,6 +44,6 @@ private:
 
 
 
-#endif  // LOCATE_OBJECT_RL_HPP_
+#endif  // DOUBLE_ARM_MOVE_TO_CARTESIAN_HPP_
 
 

@@ -1,0 +1,5 @@
+geometry_msgs/PoseStamped target_point #导航目标点
+---
+
+# 响应结果
+bool success                     # 是否导航成功

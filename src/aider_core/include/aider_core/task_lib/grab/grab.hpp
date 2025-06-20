@@ -1,5 +1,5 @@
-#ifndef GRAB_CUP_HPP_
-#define GRAB_CUP_HPP_
+#ifndef GRAB_HPP_
+#define GRAB_HPP_
 #include "../task.hpp"
 #include "aider_global_node.hpp"
 #include "param_global_node.hpp"//参数中心单例
@@ -10,9 +10,9 @@
 
 
 
-class GrapCupTask : public Task {
+class GrapTask : public Task {
 public:
-    explicit GrapCupTask();
+    explicit GrapTask();
     virtual void Excute();
     virtual void Stop();
     virtual bool SetParams(std::vector<std::string> params);
@@ -23,8 +23,8 @@ private:
     std::shared_ptr<Primitive> single_arm_move_to_;
     std::shared_ptr<rclcpp::Node> aider_node;
     std::shared_ptr<ParamCenter> param_center; 
-    int now_grabcup_instance_counter_;//本次任务计数
-    static int grabcup_instance_counter_; //任务生成计数器
+    int now_grab_instance_counter_;//本次任务计数
+    static int grab_instance_counter_; //任务生成计数器
 };
 
 
@@ -33,5 +33,5 @@ private:
 
 
 
-#endif  // GRAB_CUP_HPP_
+#endif  // GRAB_HPP_
 

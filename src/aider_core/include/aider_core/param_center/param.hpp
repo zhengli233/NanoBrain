@@ -5,15 +5,10 @@
 #include <any>
 
 enum class ParamType { INT, FLOAT, STRING, BOOL, UNKNOWN };
-enum class ParamScope { TASK, PRIMITIVE };
 
 struct Param {
     std::string name;
     ParamType type;
-    ParamScope scope;
-    std::any value;
-    bool is_assigned = false;
-    int request_count = 0;
 };
 
 inline ParamType parseType(const std::string& type_str) {
@@ -22,12 +17,6 @@ inline ParamType parseType(const std::string& type_str) {
     if (type_str == "string") return ParamType::STRING;
     if (type_str == "bool") return ParamType::BOOL;
     return ParamType::UNKNOWN;
-}
-
-inline ParamScope parseScope(const std::string& scope_str) {
-    if (scope_str == "task") return ParamScope::TASK;
-    if (scope_str == "primitive") return ParamScope::PRIMITIVE;
-    return ParamScope::PRIMITIVE;  // 默认是 primitive
 }
 
 inline std::string paramTypeToString(ParamType type) {

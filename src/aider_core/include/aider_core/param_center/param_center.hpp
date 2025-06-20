@@ -10,21 +10,20 @@
 #include <any>
 #include <thread>
 #include <chrono>
-
+#include "task.hpp"
+#include "rclcpp/exceptions.hpp"
 
 class ParamCenter {
 public:
     explicit ParamCenter(const std::string& yaml_path);
-    bool assignParam(const std::string& name, const std::any& value);
-    std::optional<std::any> getParamValue(const std::string& name);
-    bool clear_param(const std::string& name);
-    // void clearPrimitiveParams();  // 删除所有primitive参数的赋值状态
-    // void clearTaskParams();       // 删除所有task参数的赋值状态
-
+    std::string GetParamType(const std::string& name);//通过查表获取参数的类型
+    bool RegistParam(const std::string& task_name, int instance_id, const std::string& key);
+    bool SetParamValue(const std::string& task_name, int instance_id, const std::string& key, const std::any& value);
+    bool SetParamByUser(const std::string& task_name, int instance_id, const std::string& key);
+    std::optional<std::any> GetParamValue(const std::string& task_name, int instance_id, const std::string& key);
 private:
     std::shared_ptr<rclcpp::Node> aider_node;
     std::unordered_map<std::string, Param> param_table_;
-    void param_center_handle();
 };
 
 

@@ -1,0 +1,6 @@
+string object_label  # 要导航的物体标签（如 "cup"）
+
+---
+
+# 响应结果
+bool success                     # 是否导航成功
